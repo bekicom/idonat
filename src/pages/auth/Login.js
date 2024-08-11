@@ -59,7 +59,7 @@ function Login() {
               <a href="mailto:info@idonate.uz">info@idonate.uz</a>
             </span>
             <span>
-              Akkauntingiz yo'qmi? <Link>Ro'yhatdan o'tish</Link>
+              Akkauntingiz yo'qmi? <Link to="/register">Ro'yhatdan o'tish</Link>
             </span>
           </div>
         </div>
