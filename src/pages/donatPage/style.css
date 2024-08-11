@@ -1,0 +1,7 @@
+input[type="color"] {
+  height: 50px;
+  padding: 5px;
+}
+textarea {
+  resize: none;
+}

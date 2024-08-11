@@ -1,0 +1,16 @@
+.btns {
+  display: flex;
+  gap: 10px;
+}
+.error {
+  font-size: 14px;
+  color: var(--danger);
+}
+.setting_audio,
+.setting_gif {
+  max-width: 300px;
+  margin-top: 8px;
+}
+.setting_audio{
+    height: 54px;
+}

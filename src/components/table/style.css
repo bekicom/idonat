@@ -1,0 +1,25 @@
+.table_container {
+  width: 100%;
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 20px 15px;
+  vertical-align: bottom;
+  text-align: left;
+  font-weight: 500;
+  border-bottom: 1px solid #2a2c40;
+  color: var(--textColor);
+}
+label::first-letter,
+th::first-letter,
+td::first-letter {
+  text-transform: uppercase;
+}
+tr:hover:not(thead tr) {
+  background: var(--bgLight);
+}

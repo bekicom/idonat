@@ -1,0 +1,20 @@
+input[type="file"] {
+  background: none;
+  padding: 7px 0;
+  font-size: 16px;
+  font-weight: lighter;
+}
+h6{
+    font-size: 18px;
+    font-weight: normal;
+    margin: 8px 0;
+}
+.form span{
+    font-size: 14px;
+    margin:5px 0;
+    line-height: 1.5;
+} 
+.profile_img{
+  width: 80px;
+  height: 80px;
+}

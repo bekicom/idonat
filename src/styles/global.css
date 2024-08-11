@@ -1,0 +1,116 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;800;900&display=swap);
+:root {
+  --textColor: #b1b1b5;
+  --bgColor: #131633;
+  --bgLight: #222840;
+  --inputBg: #2b2e4c;
+  --logo: #fff200;
+  --muted: #8c909a;
+  --indigo: #8110a5;
+  --indigoHover: #691284e3;
+  --success: #0acf97;
+  --successHover: #06b482;
+  --danger: #ff4979;
+  --dangerHover: #f73569;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  outline: none;
+  background: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
+}
+.App {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bgColor);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 54px,
+    var(--bgLight) 0
+  );
+  background-attachment: fixed;
+}
+.container {
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+}
+main {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bgLight);
+}
+section {
+  min-height: 170px;
+  margin: 16px 16px 50px;
+  color: var(--textColor);
+  padding: 30px 30px 40px;
+  background: var(--bgColor);
+  border-radius: 12px;
+}
+button {
+  cursor: pointer;
+}
+.title {
+  font-size: 14px;
+  margin-bottom: 32px;
+  text-transform: capitalize;
+}
+.btn {
+  font-size: 14px;
+  color: #fff;
+  padding: 14px 24px;
+  margin: 8px 0;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+.btn_danger {
+  background: var(--danger);
+}
+.btn_danger:hover {
+  background: var(--dangerHover);
+}
+.btn_indigo {
+  background: var(--indigo);
+}
+.btn_indigo:hover {
+  background: var(--indigoHover);
+}
+.btn_success {
+  background: var(--success);
+}
+.btn_success:hover {
+  background: var(--successHover);
+}
+::placeholder {
+  color: #a7a4a4;
+  font-size: 15px;
+}
+body::-webkit-scrollbar {
+  width: 5px;
+  background: var(--bgColor);
+}
+body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.charts::-webkit-scrollbar{
+  width: 2px;
+  height: 3px;
+}
+.charts::-webkit-scrollbar-track{
+  background: var(--bgLight);
+}
+.charts::-webkit-scrollbar-thumb{
+  background: var(--logo);
+  height: 2px;
+  width: 2px;
+  border-radius: 3px;
+}

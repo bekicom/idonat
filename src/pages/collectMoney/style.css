@@ -1,0 +1,17 @@
+.custom_checkbox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  outline: 2px solid var(--indigo);
+  accent-color: var(--indigo);
+  transition: 0.3s;
+}
+.custom_checkbox span {
+  user-select: none;
+}

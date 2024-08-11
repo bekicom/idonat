@@ -1,0 +1,69 @@
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 55px;
+  background: var(--bgColor);
+  color: var(--textColor);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px;
+  border-bottom: 1px solid var(--bgLight);
+  z-index: 3;
+}
+.head_left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.head_left .moniker {
+  display: none;
+}
+.head_left svg {
+  cursor: pointer;
+}
+.test {
+  position: relative;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--textColor);
+  font-size: 16px;
+}
+.test svg {
+  width: 15px;
+  height: 15px;
+  color: var(--textColor);
+  fill: var(--textColor);
+}
+.header_select {
+  position: absolute;
+  top: 90%;
+  right: 0;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bgColor);
+}
+.header_select button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--textColor);
+  font-size: 16px;
+  padding: 11px 13px;
+}
+.header_select button:nth-child(1) {
+  border-bottom: 1px solid var(--bgLight);
+}
+.header_select button:hover {
+  background: var(--bgLight);
+}
+.header_select button svg {
+  width: 20px;
+  height: 20px;
+  color: var(--indigo);
+}

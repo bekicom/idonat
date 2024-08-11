@@ -1,0 +1,10 @@
+export { default as Dashboard } from "./dashboard";
+export { default as Messages } from "./messages";
+export { default as Payments } from "./payments";
+export { default as Profile } from "./profile";
+export { default as Settings } from "./settings";
+export { default as TopDonators } from "./topDonators";
+export { default as WithdrawMoney } from "./withdrawMoney";
+export { default as CollectMoney } from "./collectMoney";
+export { default as DonatPage } from "./donatPage";
+export { default as Login } from "./auth/Login";

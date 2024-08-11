@@ -1,0 +1,10 @@
+.charts {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding-top: 10px;
+  overflow-x: auto;
+}
+.chart {
+  width: 50%;
+}

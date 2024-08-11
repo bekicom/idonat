@@ -1,0 +1,129 @@
+@media (max-width: 1100px) {
+  .head_left .moniker {
+    display: flex;
+  }
+  .header,
+  .test img {
+    display: none;
+  }
+  .header_select button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  aside.sidebar {
+    position: fixed;
+    top: 55px;
+    transition: all 0.3s;
+  }
+  .dashboard .table_container {
+    min-width: max-content;
+  }
+  th,
+  td {
+    max-width: 100px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .login {
+    min-height: max-content;
+    background: none;
+  }
+  .login:after {
+    background: none;
+  }
+  @scope (.login) {
+    .container {
+      height: 100vh;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .container > * {
+      width: 100%;
+    }
+    .login_left {
+      height: 100%;
+      background: var(--bgLight);
+    }
+    div.login_right {
+      height: 55px;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      background: url(../assets/login-bg.jpeg);
+      background-size: cover;
+      background-blend-mode: multiply;
+      background-position: top;
+    }
+  }
+}
+@media (max-width: 800px) {
+  .charts {
+    flex-direction: column;
+  }
+  .chart {
+    width: 100%;
+  }
+}
+@media (max-width: 650px) {
+  .title {
+    margin-bottom: 20px;
+  }
+  .btn {
+    padding: 8px 14px;
+  }
+  h6 {
+    font-size: 14px;
+    font-weight: bolder;
+  }
+  ::placeholder,
+  .label {
+    font-size: 14px;
+  }
+  textarea,
+  .form input:not(input[type="color"]) {
+    padding: 10px 16px;
+  }
+  .logo {
+    width: 25px;
+    height: 25px;
+  }
+  .moniker {
+    font-size: 20px;
+  }
+  .chart {
+    min-width: 400px;
+    padding-bottom: 20px;
+  }
+  .footer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 10px;
+  }
+  .setting_audio,
+  .setting_gif {
+    max-width: 100%;
+  }
+  .setting_audio {
+    height: 40px;
+  }
+}
+@media (max-width: 400px) {
+  th,
+  td {
+    font-size: 12px;
+    padding: 10px;
+  }
+  span.checkmark,
+  ::placeholder {
+    font-size: 12px;
+  }
+  label.label {
+    font-size: 13px;
+  }
+  section {
+    padding: 25px 15px;
+  }
+}

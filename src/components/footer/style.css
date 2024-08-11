@@ -1,0 +1,24 @@
+.footer {
+  position: sticky;
+  top: 100%;
+  right: 0;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-top: 0.5px solid #1316332f;
+}
+.footer span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.footer span small {
+  font-size: 13px;
+  color: var(--indigo);
+}
+.footer b {
+  font-weight: normal;
+  font-size: 13px;
+  color: var(--textColor);
+}
