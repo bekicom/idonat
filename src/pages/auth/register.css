@@ -1,0 +1,139 @@
+.register {
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  width: 100vw;
+}
+.left {
+  width: 50%;
+  display: flex;
+  background-color: #222840;
+  justify-content: center;
+  min-height: 100vh;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.logo > img {
+  width: 40px;
+}
+.logo > p {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 300;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+}
+.text > h5 {
+  color: #b1b1b5;
+  font-size: 20px;
+  font-weight: 300;
+}
+.text > h6 {
+  color: #80838e;
+  font-size: 16px;
+  font-weight: 200;
+}
+.left-box {
+  width: 50%;
+  padding-block: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  gap: 20px;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.inputs > label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-inline: 12px;
+  border: 1px solid white;
+  min-height: 50px;
+}
+.input > :first-child {
+  color: #68188a;
+}
+.input > input {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 4px;
+}
+.inputs > label > p {
+  color: #80838e;
+  font-size: 14px;
+  font-weight: 300;
+}
+.checkbox {
+  display: flex;
+  gap: 12px;
+}
+.checkbox > input {
+  border: none !important;
+  outline: none !important;
+  width: 20px;
+  height: 20px;
+}
+.checkbox > p {
+  font-size: 16px;
+  font-weight: 300;
+  color: #b1b1b5;
+}
+.checkbox > p > a {
+  color: #007bff;
+}
+.left-box > button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background-color: #68188a;
+  color: #fff;
+  font-weight: 200;
+  font-size: 18px;
+  border-radius: 4px;
+}
+.left-box > p {
+  color: #80838e;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+}
+.left-box > p > a {
+  color: #007bff;
+}
+.right {
+  background-image: url(../../assets/register.jpg);
+  width: 50%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-size: cover;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 6px;
+  padding-block-end: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+}
+.right > a {
+  color: #007bff;
+}

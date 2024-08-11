@@ -5,15 +5,18 @@ import App from "./App";
 import { MyBooleanProvider } from "./context";
 import './styles/global.css';
 import "./styles/media.css";
-
+import { Provider } from "react-redux";
+import store from './context/store'
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <MyBooleanProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </MyBooleanProvider>
+    </Provider>
   </React.StrictMode>
 );

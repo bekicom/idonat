@@ -1,8 +1,8 @@
-import  { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const MyBooleanContext = createContext({
   isToggled: false,
-  setIsToggled: () => {},
+  setIsToggled: () => { },
 });
 
 export const MyBooleanProvider = ({ children }) => {

@@ -10,7 +10,7 @@ function App() {
     return (
       <>
         <Auth />
-        <Navigate to={"/login"} />
+        {/* <Navigate to={"/login"} /> */}
       </>
     );
   }

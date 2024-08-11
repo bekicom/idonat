@@ -1,0 +1,235 @@
+import React, { useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
+import logo from "../../assets/applogo.png";
+import "./register.css";
+import { useRegisterMutation } from "../../context/service/auth.service";
+
+const Register = () => {
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    channel: "",
+    channel_url: "",
+    channel_description: "",
+    email: "",
+    password: "",
+    phone: "",
+    channel_screenshot: null,
+  });
+
+  const [register, { isLoading, isError, isSuccess, error }] = useRegisterMutation();
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, channel_screenshot: e.target.files[0] });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const body = new FormData();
+    body.append("first_name", formData.first_name);
+    body.append("last_name", formData.last_name);
+    body.append("username", formData.username);
+    body.append("channel", formData.channel);
+    body.append("channel_url", formData.channel_url);
+    body.append("channel_description", formData.channel_description);
+    body.append("email", formData.email);
+    body.append("password", formData.password);
+    body.append("phone", formData.phone);
+
+    if (formData.channel_screenshot) {
+      body.append("channel_screenshot", formData.channel_screenshot);
+    }
+
+    try {
+      const result = await register(body).unwrap();
+      console.log("Ro'yxatdan o'tish muvaffaqiyatli:", result);
+    } catch (error) {
+      console.error("Ro'yxatdan o'tishda xato:", error);
+    }
+  };
+
+  return (
+    <div className="register">
+      <div className="left">
+        <form className="left-box" onSubmit={handleSubmit}>
+          <a href="https://idonate.uz/" className="logo">
+            <img src={logo} alt="" />
+            <p>iDonate</p>
+          </a>
+          <div className="text">
+            <h5>Xush kelibsiz</h5>
+            <h6>Saytdan foydalanish uchun ro'yxatdan o'ting!</h6>
+          </div>
+          <div className="inputs">
+            {/* Inputs fields */}
+            <label htmlFor="first_name">
+              <p>Ismingiz</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="first_name"
+                  placeholder="Ismingiz"
+                  value={formData.first_name}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="last_name">
+              <p>Familiyangiz</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="last_name"
+                  placeholder="Familiyangiz"
+                  value={formData.last_name}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="username">
+              <p>Foydalanuvchi nomi</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="channel">
+              <p>Kanalingiz nomi</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="channel"
+                  placeholder="Kanal nomi"
+                  value={formData.channel}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="channel_url">
+              <p>Kanalingiz Havolasi (ssilkasi)</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="channel_url"
+                  placeholder="Kanal manzili"
+                  value={formData.channel_url}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="channel_description">
+              <p>Kanal haqida</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="channel_description"
+                  placeholder="Kanal haqida"
+                  value={formData.channel_description}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="email">
+              <p>Email</p>
+              <div className="input">
+                <IoMail />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="password">
+              <p>Parol</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="phone">
+              <p>Telefon</p>
+              <div className="input">
+                <FaRegUser />
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="Telefon"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </label>
+            <label htmlFor="channel_screenshot">
+              <p>
+                Kanalga kontent yuklash (Youtube Studio) dan rasm (screenshot)
+                ni yuklang
+              </p>
+              <div className="input">
+                <input
+                  style={{ color: "white" }}
+                  type="file"
+                  id="channel_screenshot"
+                  onChange={handleFileChange}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="checkbox">
+            <input type="checkbox" />
+            <p>
+              Men{" "}
+              <a href="https://idonate.uz/assets/terms.pdf">Ommaviy oferta</a>{" "}
+              ni o'qib chiqdim va qabul qilaman.
+            </p>
+          </div>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Yuborilmoqda...' : 'Ro\'yxatdan o\'tish'}
+          </button>
+          <p>
+            Murojaat uchun telegram{" "}
+            <a href="https://t.me/idonate_admin">@idonate_admin</a>, <br />
+            email: <a href="mailto:info@idonate.uz">info@idonate.uz</a>
+          </p>
+        </form>
+      </div>
+      <div className="right">
+        <p>Copyright © 2023-2024</p>
+        <a href="https://idonate.uz/terms-of-service/payments">
+          To'lov shartlari
+        </a>
+        <a href="https://idonate.uz/privacy-policy">Maxfiylik siyosati</a>
+        <a href="https://idonate.uz/public-offer">Ommaviy oferta</a>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
