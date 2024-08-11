@@ -1,18 +1,32 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../context/service/auth.service"; // Adjust the path accordingly
 import "./login.css";
 import logo from "../../assets/applogo.png";
 import { IconMail, IconLock } from "@tabler/icons-react";
 
 function Login() {
-  let navigate = useNavigate();
-  function handleSubmit(e) {
+  const navigate = useNavigate();
+  const [login, { isLoading, error }] = useLoginMutation(); // Use the login mutation hook
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = new FormData(e.target);
+    const data = new FormData(e.target);
     const formData = Object.fromEntries(data);
-    localStorage.setItem("token", JSON.stringify(formData));
-    navigate("/");
-    window.location.reload();
-  }
+
+    try {
+      const response = await login(formData).unwrap();
+      const token = response.result.token; // Extract the token from the response
+      console.log(response);
+
+      localStorage.setItem("token", token);
+      navigate("/");
+      window.location.reload();
+    } catch (err) {
+      // Handle login error
+      console.error("Login failed:", err);
+    }
+  };
+
   return (
     <div className="login">
       <div className="container">
@@ -49,7 +63,9 @@ function Login() {
               <input className="checkbox" type="checkbox" />
               <span className="checkmark">Meni eslab qol</span>
             </label>
-            <button className="btn_indigo">kirish</button>
+            <button className="btn_indigo" type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Kirish"}
+            </button>
           </form>
           {/* FORM END */}
           <div className="contact">
