@@ -16,7 +16,29 @@ const authApi = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    resendSms: builder.mutation({
+      query: (body) => ({
+        url: "/auth/resend",
+        method: "POST",
+        body,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }),
+    }),
+    verifyOtp: builder.mutation({
+      query: (body) => ({
+        url: "/auth/verify",
+        method: "POST",
+        body,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useResendSmsMutation, useVerifyOtpMutation } = authApi;
