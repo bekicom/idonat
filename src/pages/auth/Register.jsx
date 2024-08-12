@@ -33,11 +33,12 @@ const Register = () => {
   const [seconds, setSeconds] = useState(60);
 
   useEffect(() => {
-    if (seconds > 0) {
-      const timer = setTimeout(() => setSeconds(seconds - 1), 2000);
-      return () => clearTimeout(timer);
+    let timer;
+    if (isModalVisible && seconds > 0) {
+      timer = setTimeout(() => setSeconds(seconds - 1), 1000);
     }
-  }, [seconds]);
+    return () => clearTimeout(timer);
+  }, [isModalVisible, seconds]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -112,6 +113,7 @@ const Register = () => {
     };
     try {
       const result = await resend(body).unwrap();
+      console.log("Otp yuborildi:", result);
       setSeconds(60);
     } catch (error) {
       console.error("Otp tasdiqlashda xato:", error);
@@ -137,6 +139,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="first_name"
                   placeholder="Ismingiz"
@@ -150,6 +153,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="last_name"
                   placeholder="Familiyangiz"
@@ -163,6 +167,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="username"
                   placeholder="Username"
@@ -176,6 +181,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="channel"
                   placeholder="Kanal nomi"
@@ -189,6 +195,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="channel_url"
                   placeholder="Kanal manzili"
@@ -202,6 +209,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="channel_description"
                   placeholder="Kanal haqida"
@@ -215,6 +223,7 @@ const Register = () => {
               <div className="input">
                 <IoMail />
                 <input
+                  required
                   type="email"
                   id="email"
                   placeholder="Email"
@@ -228,6 +237,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="password"
                   id="password"
                   placeholder="Password"
@@ -241,6 +251,7 @@ const Register = () => {
               <div className="input">
                 <FaRegUser />
                 <input
+                  required
                   type="text"
                   id="phone"
                   placeholder="Telefon"
@@ -256,6 +267,7 @@ const Register = () => {
               </p>
               <div className="input">
                 <input
+                  required
                   style={{ color: "white" }}
                   type="file"
                   id="channel_screenshot"
@@ -265,7 +277,7 @@ const Register = () => {
             </label>
           </div>
           <div className="checkbox">
-            <input type="checkbox" />
+            <input required type="checkbox" />
             <p>
               Men{" "}
               <a href="https://idonate.uz/assets/terms.pdf">Ommaviy oferta</a>{" "}
@@ -306,6 +318,7 @@ const Register = () => {
             renderSeparator={<span style={{ margin: "0 5px" }}> </span>}
             renderInput={(props, index) => (
               <input
+                required
                 {...props}
                 key={index}
                 style={{
