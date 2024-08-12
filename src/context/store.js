@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./service/api.service";
 
- const store = configureStore({
+const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
         // Boshqa reducerlar
