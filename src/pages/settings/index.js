@@ -1,12 +1,18 @@
 import { useState } from "react";
 import "./style.css";
+import coinGif from '../../assets/coin.gif'
+import defultMp3 from '../../assets/default.mp3'
 function Settings() {
   // gif
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(coinGif);
   const [errorMessage, setErrorMessage] = useState(null);
   // audio
   const [selectedFile, setSelectedFile] = useState(null);
-  const [audioUrl, setAudioUrl] = useState(null);
+  const [audioUrl, setAudioUrl] = useState(defultMp3);
+
+  //color
+  const [colorUrl, setColorUrl] = useState("#ffffff");
+
 
   // SET GIF
   const handleImg = (event) => {
@@ -38,9 +44,6 @@ function Settings() {
         )}
         <input onChange={handleImg} accept="image/gif" type="file" />
         {errorMessage && <span className="error">{errorMessage}</span>}
-        <button className="btn btn_success">Saqlash</button>
-      </form>
-      <form className="form">
         <label className="label">Tovushni o'zgartirish</label>
         {audioUrl && (
           <audio
@@ -51,10 +54,17 @@ function Settings() {
           ></audio>
         )}
         <input accept="audio/*" onChange={handleAudio} type="file" />
+        <label className="label">Fonni o'zgartirish</label>
+        <input type="color" defaultValue={colorUrl} />
         <button className="btn btn_success">Saqlash</button>
       </form>
       <form className="form">
         <label className="label">strim uchun havola</label>
+        <input
+          type="text"
+          placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
+        />
+        <label className="label">telefonda strim uchun havola</label>
         <input
           type="text"
           placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"

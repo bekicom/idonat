@@ -8,6 +8,11 @@ import {
   WithdrawMoney,
   CollectMoney,
   DonatPage,
+  Statistic,
+  Goal,
+  Admin,
+  Users,
+  NewUsers,
 } from "../pages";
 
 export const RootRoutes = [
@@ -46,5 +51,25 @@ export const RootRoutes = [
   {
     path: "profile",
     element: <Profile />,
+  },
+  {
+    path: "statistic",
+    element: <Statistic />,
+  },
+  {
+    path: "goal",
+    element: <Goal />,
+  },
+  {
+    path: "admin",
+    element: <Admin />,
+  },
+  {
+    path: "admin/users",
+    element: <Users />,
+  },
+  {
+    path: "admin/users/new",
+    element: <NewUsers />,
   },
 ];

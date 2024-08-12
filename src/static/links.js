@@ -1,13 +1,12 @@
 import {
-  IconTriangleSquareCircle,
   IconLayoutBoardSplit,
   IconMessage,
   IconCashBanknote,
   IconArrowUpRight,
   IconCashBanknoteOff,
-  IconReceiptDollar,
   IconNotebook,
   IconUserCircle,
+  IconUserEdit,
 } from "@tabler/icons-react";
 
 export const data = [
@@ -28,12 +27,7 @@ export const data = [
     icon: IconCashBanknoteOff,
     link: "/withdraw-money",
   },
-  { label: "Pul yig'ish", icon: IconReceiptDollar, link: "/collect-money" },
   { label: "Donat sahifasi", icon: IconNotebook, link: "/donat-page" },
-  {
-    label: "Vidjet sozlamalari",
-    icon: IconTriangleSquareCircle,
-    link: "/settings",
-  },
   { label: "Profil", icon: IconUserCircle, link: "/profile" },
+  { label: "Admin panel", icon: IconUserEdit, link: "/admin" },
 ];

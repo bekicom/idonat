@@ -1,7 +1,7 @@
 import "./style.css";
 import { IconMinus } from "@tabler/icons-react";
 
-function Table({ title, data }) {
+function Table({ title, data, actions }) {
   return (
     <div className="table_container">
       <table className="table">

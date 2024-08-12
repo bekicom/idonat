@@ -8,3 +8,8 @@ export { default as WithdrawMoney } from "./withdrawMoney";
 export { default as CollectMoney } from "./collectMoney";
 export { default as DonatPage } from "./donatPage";
 export { default as Login } from "./auth/Login";
+export { default as Statistic } from "./settings/Statistic";
+export { default as Goal } from "./settings/Goal";
+export { default as Admin } from "./admin/Admin";
+export { default as Users } from "./admin/Users";
+export { default as NewUsers } from "./admin/NewUsers";

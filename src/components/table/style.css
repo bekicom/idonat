@@ -23,3 +23,13 @@ td::first-letter {
 tr:hover:not(thead tr) {
   background: var(--bgLight);
 }
+td > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 10px;
+  color: #fff;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+}

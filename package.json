@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@tabler/icons-react": "^2.47.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -10,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.3",
     "chart.js": "^4.4.2",
+    "framer-motion": "^11.3.24",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

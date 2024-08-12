@@ -14,7 +14,7 @@
   color: var(--textColor);
 }
 textarea,
-.form input {
+.form input, .form select {
   width: 100%;
   background: var(--inputBg);
   padding: 14px 22px;

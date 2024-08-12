@@ -56,7 +56,8 @@
   flex-direction: column;
   gap: 6px;
 }
-.input {
+.input,
+.select {
   display: flex;
   align-items: center;
   gap: 20px;
