@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import applogo from "../../assets/applogo.png";
 import axios from "axios";
 import "./style.css";
@@ -12,7 +12,9 @@ const MakeDonat = () => {
   const [rawCardNumber, setRawCardNumber] = useState("");
   const [formattedExpiryDate, setFormattedExpiryDate] = useState("");
   const [rawExpiryDate, setRawExpiryDate] = useState("");
-
+  const amount = useRef();
+  const message = useRef();
+  const name = useRef();
   const handleInputChange = (event) => {
     let value = event.target.value.replace(/\D/g, ""); // faqat raqamlar
     if (value.length > 16) {
@@ -26,6 +28,7 @@ const MakeDonat = () => {
     setRawCardNumber(value); // Bo'shliqlarsiz karta raqami
   };
 
+  console.log(userData);
   const handleExpireInputChange = (event) => {
     let value = event.target.value.replace(/\D/g, ""); // faqat raqamlar
     if (value.length > 4) {
@@ -39,6 +42,9 @@ const MakeDonat = () => {
     setRawExpiryDate(value); // Bo'shliqlarsiz MMYY formatidagi qiymat
   };
 
+  console.log(rawExpiryDate);
+  console.log(rawCardNumber);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -47,14 +53,11 @@ const MakeDonat = () => {
         "https://idonate.uz/api/v1/donation/make",
         {
           user_id: userData.id, // yoki to'g'ri user ID oling
-          name: anonim ? "Anonim" : userData.name,
-          message: "I want to donate",
-          amount: 1000,
+          name: anonim ? "Anonim" : name.current.value,
+          message: message.current.value,
+          amount: amount.current.value,
           tax_mine: komissiya ? 1 : 0,
-          payment_type: "psp, click, payme",
-          card_number: rawCardNumber,
-          card_expire: rawExpiryDate.slice(0, 2) + rawExpiryDate.slice(2, 4),
-          card_expiry: formattedExpiryDate.replace("/", ""),
+          payment_type: "payme",
         },
         {
           headers: {
@@ -65,9 +68,12 @@ const MakeDonat = () => {
         }
       );
       console.log(response.data); // Muvaffaqiyatli javobni ko'rsatish
+      window.location.href = response.data.result;
     } catch (error) {
       console.error("Xatolik:", error.response?.data || error.message);
     }
+    console.log(rawExpiryDate);
+    console.log(rawCardNumber);
   };
 
   return (
@@ -86,7 +92,7 @@ const MakeDonat = () => {
         </p>
         <form className="form" onSubmit={handleSubmit}>
           <label className="label">Ismingiz</label>
-          <input type="text" defaultValue={anonim ? "Anonim" : ""} />
+          <input ref={name} type="text" defaultValue={anonim ? "Anonim" : ""} />
           <div className="switch-div">
             <p onClick={() => setAnonim(!anonim)}>Anonim</p>
             <div
@@ -106,9 +112,9 @@ const MakeDonat = () => {
             </div>
           </div>
           <label>Xabar</label>
-          <textarea rows="4" cols="100" />
+          <textarea ref={message} rows="4" cols="100" />
           <label>Qancha donat qilmoqchisiz?</label>
-          <input type="number" />
+          <input ref={amount} type="number" />
           <div className="switch-div">
             <p onClick={() => setKomissiya(!komissiya)}>
               Komissiyani o'zim to'layman
@@ -134,8 +140,7 @@ const MakeDonat = () => {
 
           <p>Minimal donat: 1000 UZS</p>
           <p>Streamer oladi: 0 UZS</p>
-          <label className="label">Karta raqami</label>
-
+          {/* <label className="label">Karta raqami</label>
           <input
             onChange={handleInputChange}
             maxLength="19"
@@ -151,7 +156,7 @@ const MakeDonat = () => {
             placeholder="MM/YY"
             style={{ maxWidth: "100px" }}
             type="text"
-          />
+          /> */}
           <button type="submit" className="donat_button">
             Donat qilish
           </button>

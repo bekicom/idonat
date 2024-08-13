@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.css";
+import axios from "axios";
 function Settings() {
   // gif
   const [errorMessage, setErrorMessage] = useState(null);
@@ -34,10 +35,39 @@ function Settings() {
     setAudioUrl(audioUrl);
   };
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("gif", selectedFile);
+    data.append("audio", audioUrl);
+    data.append("backgroun_color", colorUrl);
+    data.append(
+      "refresh_stream_link",
+      "https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
+    );
+
+    try {
+      const response = await axios.put(
+        "https://idonate.uz/api/v1/widget/donation/update",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response);
+      // localStorage.setItem("user", JSON.stringify(response.data.result));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       <p className="title">Vidjet sozlamalari</p>
-      <form className="form">
+      <form onSubmit={handleSubmit} className="form">
         <label className="label">GIFni o'zgartirish (max 1 mb)</label>
         {imageUrl && (
           <img
@@ -60,17 +90,18 @@ function Settings() {
         <input accept="audio/*" onChange={handleAudio} type="file" />
         <label className="label">Fonni o'zgartirish</label>
         <input type="color" defaultValue={colorUrl} />
-        <button className="btn btn_success">Saqlash</button>
-      </form>
-      <form className="form">
         <label className="label">strim uchun havola</label>
         <input
           type="text"
           placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
         />
         <div className="btns">
-          <button className="btn btn_success">Yangilash</button>
-          <button className="btn btn_danger">Test xabar</button>
+          <button className="btn btn_success" type="submit">
+            Yangilash
+          </button>
+          <button className="btn btn_danger" type="button">
+            Test xabar
+          </button>
         </div>
       </form>
     </div>
