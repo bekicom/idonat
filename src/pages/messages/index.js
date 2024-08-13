@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "../../components/card";
+import Card from "../../components/card/index";
 
 function Messages() {
   const [data, setData] = useState([]);

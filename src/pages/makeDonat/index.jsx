@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import applogo from "../../assets/applogo.png";
+import axios from "axios";
 import "./style.css";
 
 const MakeDonat = () => {
   const userData = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token"); // Tokenni olish
   const [anonim, setAnonim] = useState(false);
   const [komissiya, setKomissiya] = useState(true);
   const [formattedCardNumber, setFormattedCardNumber] = useState("");
   const [rawCardNumber, setRawCardNumber] = useState("");
   const [formattedExpiryDate, setFormattedExpiryDate] = useState("");
   const [rawExpiryDate, setRawExpiryDate] = useState("");
+
   const handleInputChange = (event) => {
     let value = event.target.value.replace(/\D/g, ""); // faqat raqamlar
     if (value.length > 16) {
@@ -35,6 +38,38 @@ const MakeDonat = () => {
     setFormattedExpiryDate(formattedDate);
     setRawExpiryDate(value); // Bo'shliqlarsiz MMYY formatidagi qiymat
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "https://idonate.uz/api/v1/donation/make",
+        {
+          user_id: userData.id, // yoki to'g'ri user ID oling
+          name: anonim ? "Anonim" : userData.name,
+          message: "I want to donate",
+          amount: 1000,
+          tax_mine: komissiya ? 1 : 0,
+          payment_type: "psp, click, payme",
+          card_number: rawCardNumber,
+          card_expire: rawExpiryDate.slice(0, 2) + rawExpiryDate.slice(2, 4),
+          card_expiry: formattedExpiryDate.replace("/", ""),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Tokenni qo'shamiz
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(response.data); // Muvaffaqiyatli javobni ko'rsatish
+    } catch (error) {
+      console.error("Xatolik:", error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="make_donat">
       <div className="donat-head">
@@ -49,7 +84,7 @@ const MakeDonat = () => {
         <p>
           Donat qilib sevimli strimer yoki ijodkoringizni qo'llab quvvatlang!
         </p>
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <label className="label">Ismingiz</label>
           <input type="text" defaultValue={anonim ? "Anonim" : ""} />
           <div className="switch-div">
@@ -117,7 +152,9 @@ const MakeDonat = () => {
             style={{ maxWidth: "100px" }}
             type="text"
           />
-          <button className="donat_button">Donat qilish</button>
+          <button type="submit" className="donat_button">
+            Donat qilish
+          </button>
         </form>
       </div>
     </div>
