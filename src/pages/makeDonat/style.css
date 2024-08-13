@@ -1,0 +1,58 @@
+.switch {
+  width: 40px;
+  height: 20px;
+  background-color: #0f6efd;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding-inline: 5px;
+}
+.switch > button {
+  width: 13px;
+  height: 13px;
+  background-color: #fff;
+  transition: 0.5s;
+  border-radius: 50%;
+}
+.make_donat {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.donat_button {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  background-color: #0f6efd;
+  border-radius: 15px;
+}
+.donat-head {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.two_text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.donat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.switch-div{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
