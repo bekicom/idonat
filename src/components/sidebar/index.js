@@ -20,12 +20,13 @@ export default function Sidebar() {
   const isMobileView = window.innerWidth <= 1100;
   const location = useLocation();
   const path = location.pathname;
-  
+
   const isAdminPath = path === "/admin";
   const isUsersPath = path === "/admin/users";
   const isNewUsersPath = path === "/admin/users/new";
 
-  const linksToRender = isAdminPath || isUsersPath || isNewUsersPath ? admin_data : data;
+  const linksToRender =
+    isAdminPath || isUsersPath || isNewUsersPath ? admin_data : data;
 
   return (
     <aside

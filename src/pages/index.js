@@ -13,3 +13,4 @@ export { default as Goal } from "./settings/Goal";
 export { default as Admin } from "./admin/Admin";
 export { default as Users } from "./admin/Users";
 export { default as NewUsers } from "./admin/NewUsers";
+export { default as MakeDonat } from "./makeDonat/index";

@@ -1,18 +1,18 @@
 import { useState } from "react";
 import "./style.css";
-import coinGif from '../../assets/coin.gif'
-import defultMp3 from '../../assets/default.mp3'
 function Settings() {
   // gif
-  const [imageUrl, setImageUrl] = useState(coinGif);
   const [errorMessage, setErrorMessage] = useState(null);
   // audio
   const [selectedFile, setSelectedFile] = useState(null);
-  const [audioUrl, setAudioUrl] = useState(defultMp3);
 
   //color
   const [colorUrl, setColorUrl] = useState("#ffffff");
 
+  const userData = JSON.parse(localStorage.getItem("user")) || {};
+  console.log(userData.gif);
+  const [imageUrl, setImageUrl] = useState(userData.gif);
+  const [audioUrl, setAudioUrl] = useState(userData.audio);
 
   // SET GIF
   const handleImg = (event) => {
@@ -40,7 +40,11 @@ function Settings() {
       <form className="form">
         <label className="label">GIFni o'zgartirish (max 1 mb)</label>
         {imageUrl && (
-          <img className="setting_gif" src={imageUrl} alt="your profile gif" />
+          <img
+            className="setting_gif"
+            src={userData.gif}
+            alt="your profile gif"
+          />
         )}
         <input onChange={handleImg} accept="image/gif" type="file" />
         {errorMessage && <span className="error">{errorMessage}</span>}
@@ -49,7 +53,7 @@ function Settings() {
           <audio
             className="setting_audio"
             controls
-            src={audioUrl}
+            src={userData.audio}
             type={selectedFile?.type}
           ></audio>
         )}
@@ -60,11 +64,6 @@ function Settings() {
       </form>
       <form className="form">
         <label className="label">strim uchun havola</label>
-        <input
-          type="text"
-          placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
-        />
-        <label className="label">telefonda strim uchun havola</label>
         <input
           type="text"
           placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"

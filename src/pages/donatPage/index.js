@@ -20,7 +20,7 @@ function DonatPage() {
         <label className="label">Donat knopka matni</label>
         <input type="text" placeholder="Donat qilish" />
         <button type="submit" className="btn btn_success">
-          Saqlash
+          Saqlashƒ
         </button>
       </form>
       <form className="form">

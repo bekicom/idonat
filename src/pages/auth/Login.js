@@ -17,8 +17,10 @@ function Login() {
       const response = await login(formData).unwrap();
       const token = response.result.token; // Extract the token from the response
       console.log(response);
+      const userData = response.result;
 
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(userData));
       navigate("/");
       window.location.reload();
     } catch (err) {
