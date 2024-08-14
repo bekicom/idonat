@@ -2,14 +2,22 @@ import React, { useState, useEffect } from "react";
 import "../../components/table/style.css";
 import "./style.css";
 import { Table } from "../../components";
-import { IconEye, IconPencil, IconLock, IconTrash } from "@tabler/icons-react";
+import {
+  IconEye,
+  IconPencil,
+  IconLock,
+  IconTrash,
+  IconLockOpen,
+} from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function NewUsers() {
   const [data, setData] = useState([]); // API'dan kelgan ma'lumotlarni saqlash uchun state
   const [currentPage, setCurrentPage] = useState(1); // Joriy sahifa
   const [totalPages, setTotalPages] = useState(1); // Umumiy sahifalar soni
   const [loading, setLoading] = useState(false); // Yuklanayotgan holat
-
+  const navigate = useNavigate();
   // Ma'lumotlarni olish funksiyasi
   const fetchData = async (page = 1) => {
     setLoading(true);
@@ -19,9 +27,9 @@ function NewUsers() {
     url.searchParams.append("page", page); // Sahifani URL ga qo'shamiz
 
     const headers = {
-      "Authorization": `Bearer ${token}`, // Tokenni headerga qo'shamiz
+      Authorization: `Bearer ${token}`, // Tokenni headerga qo'shamiz
       "Content-Type": "application/json",
-      "Accept": "application/json",
+      Accept: "application/json",
     };
 
     try {
@@ -42,6 +50,7 @@ function NewUsers() {
   useEffect(() => {
     fetchData(); // Sahifa yuklanganda ma'lumotlarni olish
   }, []);
+  console.log(data);
 
   // Sahifalarni o'zgartirish funksiyasi
   const handlePageChange = (page) => {
@@ -50,14 +59,14 @@ function NewUsers() {
 
   // Pagination komponenti
   const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    const pages = [...Array(totalPages).keys()].map(i => i + 1);
+    const pages = [...Array(totalPages).keys()].map((i) => i + 1);
 
     return (
       <div className="pagination">
-        {pages.map(page => (
+        {pages.map((page) => (
           <button
             key={page}
-            className={`page-button ${currentPage === page ? 'active' : ''}`}
+            className={`page-button ${currentPage === page ? "active" : ""}`}
             onClick={() => onPageChange(page)}
           >
             {page}
@@ -67,9 +76,21 @@ function NewUsers() {
     );
   };
 
+  function blockUser(id) {
+    axios
+      .get(`https://api2.idonate.uz/api/v1/user/block/${id}`)
+      .then((res) => {
+        alert("Foydalanuvchi bloklandi");
+        fetchData();
+      })
+      .catch((err) => {
+        alert("Foydalanuvchi bloklanmadi");
+      });
+  }
+
   return (
     <div>
-      <p className="title">Tasdiqlanishi kerak foydalanuvchilar</p>
+      <p className="title">Foydalanuvchilar</p>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -94,7 +115,10 @@ function NewUsers() {
               actions: (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <button
+                    onClick={() => navigate(`${item.id}`)}
                     style={{
+                      width: "50px",
+                      height: "50px",
                       borderRadius: "5px",
                       marginRight: "5px",
                       color: "#fff",
@@ -105,7 +129,10 @@ function NewUsers() {
                     <IconEye />
                   </button>
                   <button
+                    onClick={() => navigate(`edit/${item.id}`)}
                     style={{
+                      width: "50px",
+                      height: "50px",
                       borderRadius: "5px",
                       marginRight: "5px",
                       color: "#fff",
@@ -115,28 +142,34 @@ function NewUsers() {
                   >
                     <IconPencil />
                   </button>
-                  <button
-                    style={{
-                      borderRadius: "5px",
-                      marginRight: "5px",
-                      color: "#fff",
-                      background: "#ff4979",
-                    }}
-                    aria-label="Lock"
-                  >
-                    <IconLock />
-                  </button>
-                  <button
-                    style={{
-                      borderRadius: "5px",
-                      marginRight: "5px",
-                      color: "#fff",
-                      background: "#ff4979",
-                    }}
-                    aria-label="Delete"
-                  >
-                    <IconTrash />
-                  </button>
+                  {item.status === -1 ? (
+                    <button
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "5px",
+                        color: "#fff",
+                        background: "#ff4979",
+                      }}
+                      aria-label="Unlock"
+                    >
+                      <IconLockOpen />
+                    </button>
+                  ) : (
+                    <button
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "5px",
+                        marginRight: "5px",
+                        color: "#fff",
+                        background: "#ff4979",
+                      }}
+                      aria-label="Lock"
+                    >
+                      <IconLock />
+                    </button>
+                  )}
                 </div>
               ),
             }))} // API dan kelgan ma'lumotlarni table ga uzatamiz

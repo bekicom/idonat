@@ -15,6 +15,8 @@ import {
   NewUsers,
   Donat,
   MakeDonat,
+  UserView,
+  UserEdit,
 } from "../pages";
 
 export const RootRoutes = [
@@ -78,5 +80,12 @@ export const RootRoutes = [
     path: "d",
     element: <MakeDonat />,
   },
-
+  {
+    path: "admin/users/:id",
+    element: <UserView />,
+  },
+  {
+    path: "admin/users/edit/:id",
+    element: <UserEdit />,
+  },
 ];

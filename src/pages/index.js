@@ -14,3 +14,5 @@ export { default as Admin } from "./admin/Admin";
 export { default as Users } from "./admin/Users";
 export { default as NewUsers } from "./admin/NewUsers";
 export { default as MakeDonat } from "./makeDonat/index";
+export { default as UserView } from "./admin/UserView";
+export { default as UserEdit } from "./admin/UserEdit";
