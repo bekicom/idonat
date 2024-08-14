@@ -1,59 +1,98 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../components/table/style.css";
 import "./style.css";
-import {
-  IconEye,
-  IconLock,
-  IconPencil,
-  IconPlus,
-  IconSearch,
-} from "@tabler/icons-react";
-const Users = () => {
-  const data = [
-    {
-      id: 1,
-      username: "elbek",
-      name: "Elbek",
-      channel: "elbek",
-      phone: "998990718525",
-      status: "Faol",
-    },
-  ];
+import { Table } from "../../components";
+import { IconEye, IconPencil, IconLock, IconTrash } from "@tabler/icons-react";
+
+function NewUsers() {
+  const [data, setData] = useState([]); // API'dan kelgan ma'lumotlarni saqlash uchun state
+  const [currentPage, setCurrentPage] = useState(1); // Joriy sahifa
+  const [totalPages, setTotalPages] = useState(1); // Umumiy sahifalar soni
+  const [loading, setLoading] = useState(false); // Yuklanayotgan holat
+
+  // Ma'lumotlarni olish funksiyasi
+  const fetchData = async (page = 1) => {
+    setLoading(true);
+    const token = localStorage.getItem("token"); // LocalStorage'dan tokenni olamiz
+
+    const url = new URL("https://api2.idonate.uz/api/v1/user/get-all");
+    url.searchParams.append("page", page); // Sahifani URL ga qo'shamiz
+
+    const headers = {
+      "Authorization": `Bearer ${token}`, // Tokenni headerga qo'shamiz
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    };
+
+    try {
+      const response = await fetch(url, { method: "GET", headers });
+      const result = await response.json();
+
+      // Javobdan kelgan ma'lumotlarni data ga saqlaymiz
+      setData(result.result.data); // Ma'lumotlar result.result.data'dan keladi
+      setTotalPages(result.result.total_pages); // Umumiy sahifalar sonini o'rnatamiz
+      setCurrentPage(page); // Joriy sahifani o'rnatamiz
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(); // Sahifa yuklanganda ma'lumotlarni olish
+  }, []);
+
+  // Sahifalarni o'zgartirish funksiyasi
+  const handlePageChange = (page) => {
+    fetchData(page); // Sahifa o'zgarganda yangi ma'lumotlarni olish
+  };
+
+  // Pagination komponenti
+  const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pages = [...Array(totalPages).keys()].map(i => i + 1);
+
+    return (
+      <div className="pagination">
+        {pages.map(page => (
+          <button
+            key={page}
+            className={`page-button ${currentPage === page ? 'active' : ''}`}
+            onClick={() => onPageChange(page)}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div>
-      <p className="title">Foydalanuvchilar</p>
-      <div className="search">
-        <input type="text" placeholder="Izlash" />
-        <button style={{ background: "#8110a5" }}>
-          <IconSearch />
-        </button>
-        <button style={{ background: "#0acf97" }}>
-          <IconPlus />
-        </button>
-      </div>
-      <div className="table_container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Foydalanuvchi nomi</th>
-              <th>Ismi</th>
-              <th>Kanali</th>
-              <th>Telefon raqami</th>
-              <th>Status</th>
-              <th>Amallar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.username}</td>
-                <td>{item.name}</td>
-                <td>{item.channel}</td>
-                <td>{item.phone}</td>
-                <td>{item.status}</td>
-                <td style={{ display: "flex", alignItems: "center" }}>
+      <p className="title">Tasdiqlanishi kerak foydalanuvchilar</p>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <Table
+            title={[
+              "Ism",
+              "Familiya",
+              "Kanali",
+              "Username",
+              "Telefon raqami",
+              "Status",
+              "Amallar",
+            ]}
+            data={data.map((item) => ({
+              name: item.first_name,
+              lastName: item.last_name,
+              channel: item.channel,
+              username: item.username,
+              phone: item.phone,
+              status: item.status === 1 ? "Faol" : "Nofaol",
+              actions: (
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <button
                     style={{
                       borderRadius: "5px",
@@ -61,6 +100,7 @@ const Users = () => {
                       color: "#fff",
                       background: "#0acf97",
                     }}
+                    aria-label="View"
                   >
                     <IconEye />
                   </button>
@@ -71,6 +111,7 @@ const Users = () => {
                       color: "#fff",
                       background: "rgb(255, 187, 0)",
                     }}
+                    aria-label="Edit"
                   >
                     <IconPencil />
                   </button>
@@ -81,17 +122,34 @@ const Users = () => {
                       color: "#fff",
                       background: "#ff4979",
                     }}
+                    aria-label="Lock"
                   >
                     <IconLock />
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  <button
+                    style={{
+                      borderRadius: "5px",
+                      marginRight: "5px",
+                      color: "#fff",
+                      background: "#ff4979",
+                    }}
+                    aria-label="Delete"
+                  >
+                    <IconTrash />
+                  </button>
+                </div>
+              ),
+            }))} // API dan kelgan ma'lumotlarni table ga uzatamiz
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
+      )}
     </div>
   );
-};
+}
 
-export default Users;
+export default NewUsers;
