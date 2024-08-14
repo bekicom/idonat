@@ -1,37 +1,90 @@
-import React from "react";
+import { useState } from 'react';
+import './style.css';
 
-const Goal = () => {
+function Goal() {
+  const [name, setName] = useState('');
+  const [total, setTotal] = useState('');
+  const [current, setCurrent] = useState('');
+  const [showAmount, setShowAmount] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      name,
+      total: parseInt(total, 10),
+      current: parseInt(current, 10),
+      show_amount: showAmount,
+    };
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch('https://api2.idonate.uz/api/v1/widget/goal/cretate', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error('Error creating goal:', error);
+      setErrorMessage('Failed to create goal. Please try again.');
+    }
+  };
+
   return (
     <div>
-      <p className="title">Tahrirlash</p>
-      <form className="form">
-        <label className="label">Nomi</label>
-        <input type="text" defaultValue={"Mikrafon uchun"} />
-        <label className="label">Ko'zlangan summa</label>
-        <input type="number" defaultValue={"20000000"} />
-        <label className="label">Yig'ilgan summa</label>
-        <input type="number" defaultValue={"10002000"} />
-        <label
-          style={{ display: "flex", alignItems: "center", gap: "15px" }}
-          className="label"
-        >
-          <input defaultChecked={true} type="checkbox" />
-          <p>Summani ko'rsatish</p>
-        </label>
-        <button className="btn btn_success">Saqlash</button>
-      </form>
-      <form className="form">
-        <label className="label">Maqsad uchun havola</label>
+      <p className="title">Yangi</p>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="label">nomi</label>
         <input
           type="text"
-          defaultValue={
-            "https://idonate.uz/progress?token=6SUYIKCPcZhWN4H2om3LFeBVrGRQqng8"
-          }
+          placeholder="Nomi"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        <button className="btn btn_danger">O'chirish</button>
+        <label className="label">Ko'zlangan summa</label>
+        <input
+          type="number"
+          min={1}
+          placeholder="Ko'zlangan summa"
+          value={total}
+          onChange={(e) => setTotal(e.target.value)}
+        />
+        <label className="label">yig'ilgan summa</label>
+        <input
+          type="number"
+          min={1}
+          placeholder="Yig'ilgan summa"
+          value={current}
+          onChange={(e) => setCurrent(e.target.value)}
+        />
+        <label className="custom_checkbox">
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={showAmount}
+            onChange={(e) => setShowAmount(e.target.checked)}
+          />
+          <span className="checkmark">Summani ko'rsatish</span>
+        </label>
+        <button className="btn btn_success" type="submit">
+          Saqlash
+        </button>
+        {errorMessage && <span className="error">{errorMessage}</span>}
       </form>
     </div>
   );
-};
+}
 
 export default Goal;

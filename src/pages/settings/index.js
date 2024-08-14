@@ -1,21 +1,16 @@
 import { useState } from "react";
+import axios from 'axios';
 import "./style.css";
-import axios from "axios";
-function Settings() {
-  // gif
-  const [errorMessage, setErrorMessage] = useState(null);
-  // audio
-  const [selectedFile, setSelectedFile] = useState(null);
+import coinGif from '../../assets/coin.gif';
+import defaultMp3 from '../../assets/default.mp3';
 
-  //color
+function Settings() {
+  const [imageUrl, setImageUrl] = useState(coinGif);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [audioUrl, setAudioUrl] = useState(defaultMp3);
   const [colorUrl, setColorUrl] = useState("#ffffff");
 
-  const userData = JSON.parse(localStorage.getItem("user")) || {};
-  console.log(userData.gif);
-  const [imageUrl, setImageUrl] = useState(userData.gif);
-  const [audioUrl, setAudioUrl] = useState(userData.audio);
-
-  // SET GIF
   const handleImg = (event) => {
     const selected = event.target.files[0];
     if (selected.size > 1048576) {
@@ -27,7 +22,6 @@ function Settings() {
     setErrorMessage(null);
   };
 
-  // SET AUDIO
   const handleAudio = (event) => {
     const selected = event.target.files[0];
     setSelectedFile(selected);
@@ -35,46 +29,36 @@ function Settings() {
     setAudioUrl(audioUrl);
   };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("gif", selectedFile);
-    data.append("audio", audioUrl);
-    data.append("backgroun_color", colorUrl);
-    data.append(
-      "refresh_stream_link",
-      "https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
-    );
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('background_color', colorUrl);
+    formData.append('refresh_stream_link', '1');
+    formData.append('gif', selectedFile);
+    formData.append('audio', selectedFile);
 
     try {
-      const response = await axios.put(
-        "https://idonate.uz/api/v1/widget/donation/update",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "multipart/form-data",
-          },
+      const token = localStorage.getItem("token");
+      const response = await axios.put('https://api2.idonate.uz/api/v1/widget/donation/update', formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
         }
-      );
-      console.log(response);
-      // localStorage.setItem("user", JSON.stringify(response.data.result));
+      });
+      console.log('Response:', response.data);
     } catch (error) {
-      console.error(error);
+      console.error('Error:', error);
     }
-  }
+  };
 
   return (
     <div>
       <p className="title">Vidjet sozlamalari</p>
-      <form onSubmit={handleSubmit} className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <label className="label">GIFni o'zgartirish (max 1 mb)</label>
         {imageUrl && (
-          <img
-            className="setting_gif"
-            src={userData.gif}
-            alt="your profile gif"
-          />
+          <img className="setting_gif" src={imageUrl} alt="your profile gif" />
         )}
         <input onChange={handleImg} accept="image/gif" type="file" />
         {errorMessage && <span className="error">{errorMessage}</span>}
@@ -83,26 +67,14 @@ function Settings() {
           <audio
             className="setting_audio"
             controls
-            src={userData.audio}
+            src={audioUrl}
             type={selectedFile?.type}
           ></audio>
         )}
         <input accept="audio/*" onChange={handleAudio} type="file" />
         <label className="label">Fonni o'zgartirish</label>
-        <input type="color" defaultValue={colorUrl} />
-        <label className="label">strim uchun havola</label>
-        <input
-          type="text"
-          placeholder="https://idonate.uz/stream?token=xWOhVJGPwX37nbu4TfRsvmAptrjg6LlC"
-        />
-        <div className="btns">
-          <button className="btn btn_success" type="submit">
-            Yangilash
-          </button>
-          <button className="btn btn_danger" type="button">
-            Test xabar
-          </button>
-        </div>
+        <input type="color" defaultValue={colorUrl} onChange={(e) => setColorUrl(e.target.value)} />
+        <button className="btn btn_success" type="submit">Saqlash</button>
       </form>
     </div>
   );
