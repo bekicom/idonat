@@ -78,7 +78,9 @@ function NewUsers() {
 
   function blockUser(id) {
     axios
-      .get(`https://api2.idonate.uz/api/v1/user/block/${id}`)
+      .get(`https://api2.idonate.uz/api/v1/user/block/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((res) => {
         alert("Foydalanuvchi bloklandi");
         fetchData();
@@ -157,6 +159,7 @@ function NewUsers() {
                     </button>
                   ) : (
                     <button
+                      onClick={() => blockUser(item.id)}
                       style={{
                         width: "50px",
                         height: "50px",
