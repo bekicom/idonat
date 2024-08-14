@@ -1,0 +1,73 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/admin/users/:id",
+      "dest": "/"
+    },
+    {
+      "src": "/admin/users/edit/:id",
+      "dest": "/"
+    },
+    {
+      "src": "/messages",
+      "dest": "/"
+    },
+    {
+      "src": "/top-donators",
+      "dest": "/"
+    },
+    {
+      "src": "/payment-history",
+      "dest": "/"
+    },
+    {
+      "src": "/withdraw-money",
+      "dest": "/"
+    },
+    {
+      "src": "/collect-money",
+      "dest": "/"
+    },
+    {
+      "src": "/donat-page",
+      "dest": "/"
+    },
+    {
+      "src": "/settings",
+      "dest": "/"
+    },
+    {
+      "src": "/profile",
+      "dest": "/"
+    },
+    {
+      "src": "/statistic",
+      "dest": "/"
+    },
+    {
+      "src": "/goal",
+      "dest": "/"
+    },
+    {
+      "src": "/admin",
+      "dest": "/"
+    },
+    {
+      "src": "/admin/users",
+      "dest": "/"
+    },
+    {
+      "src": "/admin/users/new",
+      "dest": "/"
+    },
+    {
+      "src": "/d",
+      "dest": "/"
+    },
+    {
+      "src": "/",
+      "dest": "/"
+    }
+  ]
+}
