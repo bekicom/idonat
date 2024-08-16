@@ -1,8 +1,6 @@
 .register {
-  max-width: 1440px;
   width: 100%;
   display: flex;
-  width: 100vw;
 }
 .left {
   width: 50%;
