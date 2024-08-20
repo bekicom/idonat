@@ -34,11 +34,12 @@ export default function Dashboard() {
           })
         );
       });
+
   }, []);
 
   console.log(dataNumber1);
   console.log(dataNumber2);
-  
+
 
   return (
     <div className="dashboard">

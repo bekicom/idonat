@@ -42,7 +42,7 @@ header {
 .header_select {
   position: absolute;
   top: 90%;
-  right: 0;
+  right: 15px;
   width: auto;
   display: flex;
   flex-direction: column;

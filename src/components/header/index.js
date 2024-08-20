@@ -8,11 +8,27 @@ import {
   IconCashBanknote,
   IconLogout,
 } from "@tabler/icons-react";
+import axios from "axios";
 
 function Header() {
   const [openModal, setOpenmodal] = useState(false);
   const { toggle } = useContext(MyBooleanContext);
   const modalRef = useRef(null);
+  const [summa, setSumma] = useState();
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    axios.get("https://api2.idonate.uz/api/v1/home/admin", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        setSumma(res.data.result.users_balance);
+      });
+  }, [])
+
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -21,8 +37,8 @@ function Header() {
   };
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside); 
-  }, []); 
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <header>
@@ -45,7 +61,7 @@ function Header() {
         {openModal && (
           <div className="header_select">
             <button>
-              <IconCashBanknote /> 20 000.00 UZS
+              <IconCashBanknote /> {summa} UZS
             </button>
             <button
               onClick={() => {

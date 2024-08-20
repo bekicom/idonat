@@ -295,12 +295,14 @@ const Register = () => {
         </form>
       </div>
       <div className="right">
-        <p>Copyright © 2023-2024</p>
-        <a href="https://idonate.uz/terms-of-service/payments">
-          To'lov shartlari
-        </a>
-        <a href="https://idonate.uz/privacy-policy">Maxfiylik siyosati</a>
-        <a href="https://idonate.uz/public-offer">Ommaviy oferta</a>
+        <div className="right-info">
+          <p>Copyright © 2023-2024</p>
+          <a href="https://idonate.uz/terms-of-service/payments">
+            To'lov shartlari
+          </a>
+          <a href="https://idonate.uz/privacy-policy">Maxfiylik siyosati</a>
+          <a href="https://idonate.uz/public-offer">Ommaviy oferta</a>
+        </div>
       </div>
       <Rodal
         className="rodal"

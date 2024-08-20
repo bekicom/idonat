@@ -126,14 +126,21 @@
   background-size: cover;
   display: flex;
   align-items: end;
-  justify-content: center;
-  gap: 6px;
+  position: relative;
   padding-block-end: 6px;
+}
+.right-info {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   color: #fff;
   font-size: 14px;
   font-weight: 300;
+  justify-content: space-between;
+  padding-inline: 48px;
 }
-.right > a {
+.right-info > a {
   color: #007bff;
 }
 
@@ -165,4 +172,25 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+@media (max-width: 940px) {
+  .right {
+    width: 100%;
+    background-color: red;
+    height: 20vh !important;
+    min-height: 1vh;
+  }
+  .left {
+    width: 100%;
+  }
+  .left-box {
+    width: 90%;
+  }
+  .right-info {
+    height: 100%;
+    align-items: center;
+  }
+  .register {
+    flex-direction: column;
+  }
 }

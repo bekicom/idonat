@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Profile() {
   const [firstName, setFirstName] = useState("");
@@ -13,7 +14,22 @@ function Profile() {
   const [password, setPassword] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const  navigate = useNavigate()
+  const navigate = useNavigate()
+
+  const [summa, setSumma] = useState();
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    axios.get("https://api2.idonate.uz/api/v1/home/admin", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        setSumma(res.data.result.users_balance);
+      });
+  }, [])
 
   const handleImg = (event) => {
     const selected = event.target.files[0];
@@ -35,15 +51,10 @@ function Profile() {
     };
 
     const body = {
-      user_id: 1, // Ma'lumotlarni serverga yuborishda kerak bo'lishi mumkin
+      user_id: 1,
       role: "user",
       first_name: firstName,
       last_name: lastName,
-      username: username,
-      channel_url: channelUrl,
-      channel_description: channelDescription,
-      email: email,
-      phone: phone,
       password: password,
     };
 
@@ -70,7 +81,7 @@ function Profile() {
         <h6>Strimer haqida ma'lumotlar</h6>
         <span>Ismi: Test</span>
         <span>Username: test_admin</span>
-        <span>Balans: 20 000.00</span>
+        <span>Balans: {summa}</span>
         <button onClick={() => navigate("/withdraw-money")} className="btn btn_success" type="button">Pulni yechib olish</button>
 
         <h6 className="input_title">Profil ma'lumotlari</h6>
@@ -94,6 +105,7 @@ function Profile() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          readOnly
         />
         <label className="label">Channel URL</label>
         <input
@@ -101,6 +113,8 @@ function Profile() {
           placeholder="https://youtube.com/yourchannel"
           value={channelUrl}
           onChange={(e) => setChannelUrl(e.target.value)}
+          readOnly
+
         />
         <label className="label">Channel Description</label>
         <input
@@ -108,6 +122,8 @@ function Profile() {
           placeholder="Channel Description"
           value={channelDescription}
           onChange={(e) => setChannelDescription(e.target.value)}
+          readOnly
+
         />
         <label className="label">Email</label>
         <input
@@ -115,6 +131,8 @@ function Profile() {
           placeholder="example@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          readOnly
+
         />
         <label className="label">Phone</label>
         <input
@@ -122,6 +140,8 @@ function Profile() {
           placeholder="998902224311"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          readOnly
+
         />
         <label className="label">Parol</label>
         <input
@@ -129,6 +149,8 @@ function Profile() {
           placeholder="Hozirgi parol"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          readOnly
+
         />
 
         <h6>Rasmni o'zgartirish</h6>

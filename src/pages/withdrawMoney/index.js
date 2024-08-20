@@ -125,16 +125,16 @@ function WithdrawMoney() {
               "Amal",
             ]}
             data={tableData.map((item) => ({
-              summa: item.amount,
-              haq: item.fee,
-              jami: item.amount + item.fee, // Jami qiymatini hisoblash
+              summa: (item.amount / 100).toLocaleString(),
+              haq: (item.fee / 100).toLocaleString(),
+              jami: ((item.amount + item.fee) / 100).toLocaleString(),
               foiz: item.percent,
-              balans: item.old_balance,
-              after: item.last_balance,
-              raqam: item.card_number,
+              balans: (item.old_balance / 100).toLocaleString(),
+              after: (item.last_balance / 100).toLocaleString(),
+              raqam: item.card_number.slice(0, 4) + "****" + item.card_number.slice(-4),
               status: item.status,
               amal: item.code,
-            }))} // API dan kelgan ma'lumotlarni table ga uzatamiz
+            }))}
           />
           <Pagination
             currentPage={currentPage}

@@ -27,6 +27,8 @@ function Messages() {
   }, [token]);
   console.log(data);
 
+
+
   return (
     <div>
       <p className="title">Xabarlar paneli</p>
@@ -41,6 +43,7 @@ function Messages() {
             message={item.message}
             paid_amount={item.paid_amount}
             paid_at={item.paid_at}
+            id={item.id}
           />
         ))}
       </div>
